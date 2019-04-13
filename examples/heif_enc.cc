@@ -84,11 +84,16 @@ void show_help(const char* argv0)
 {
   std::cerr << " heif-enc  libheif version: " << heif_get_version() << "\n"
             << "----------------------------------------\n"
-            << "usage: heif-enc [options] image.jpeg ...\n"
+            << "Usage: heif-enc [options] image.jpeg ...\n"
             << "\n"
             << "When specifying multiple source images, they will all be saved into the same HEIF file.\n"
             << "\n"
-            << "options:\n"
+            << "When using the x265 encoder, you may pass it any of its parameters by\n"
+            << "prefixing the parameter name with 'x265:'. Hence, to set the 'ctu' parameter,\n"
+            << "you will have to set 'x265:ctu' in libheif (e.g.: -p x265:ctu=64).\n"
+            << "Note that there is no checking for valid parameters when using the prefix.\n"
+            << "\n"
+            << "Options:\n"
             << "  -h, --help      show help\n"
             << "  -q, --quality   set output quality (0-100) for lossy compression\n"
             << "  -L, --lossless  generate lossless output (-q has no effect)\n"
@@ -957,12 +962,6 @@ int main(int argc, char** argv)
     }
   }
 
-  if (optind > argc-1) {
-    show_help(argv[0]);
-    return 0;
-  }
-
-
   if (quality<0 || quality>100) {
     std::cerr << "Invalid quality factor. Must be between 0 and 100.\n";
     return 5;
@@ -1020,6 +1019,12 @@ int main(int argc, char** argv)
 
   if (option_show_parameters) {
     list_encoder_parameters(encoder);
+    return 0;
+  }
+
+
+  if (optind > argc-1) {
+    show_help(argv[0]);
     return 0;
   }
 

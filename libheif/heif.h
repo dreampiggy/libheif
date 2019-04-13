@@ -450,6 +450,9 @@ int heif_image_handle_get_luma_bits_per_pixel(const struct heif_image_handle*);
 LIBHEIF_API
 int heif_image_handle_get_chroma_bits_per_pixel(const struct heif_image_handle*);
 
+// Get the image width from the 'ispe' box. This is the original image size without
+// any transformations applied to it. Do not use this unless you know exactly what
+// you are doing.
 LIBHEIF_API
 int heif_image_handle_get_ispe_width(const struct heif_image_handle* handle);
 
@@ -584,7 +587,7 @@ enum heif_color_profile_type {
 };
 
 
-// Returns 0 if there is no color profile.
+// Returns 'heif_color_profile_type_not_present' if there is no color profile.
 LIBHEIF_API
 enum heif_color_profile_type heif_image_handle_get_color_profile_type(const struct heif_image_handle* handle);
 
@@ -804,7 +807,7 @@ struct heif_error heif_image_scale_image(const struct heif_image* input,
                                          int width, int height,
                                          const struct heif_scaling_options* options);
 
-// The color profile is not attached to the image handle, because we might need it
+// The color profile is not attached to the image handle because we might need it
 // for color space transform and encoding.
 LIBHEIF_API
 struct heif_error heif_image_set_raw_color_profile(struct heif_image* image,
