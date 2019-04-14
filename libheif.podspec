@@ -77,7 +77,7 @@ HEIF is a new image file format employing HEVC (h.265) image coding for the best
     ss.preserve_path = 'libheif'
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) HAVE_AOM=1',
-      'HEADER_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/libheif/ ${PODS_TARGET_SRCROOT}/ ${PODS_ROOT}/libaom/' # Fix #include <aom/aom_decoder.h>
+      'HEADER_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/libheif/ ${PODS_TARGET_SRCROOT}/ ${PODS_ROOT}/libaom/include' # Fix #include <aom/aom_decoder.h>
     }
   end
 
