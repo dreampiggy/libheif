@@ -70,14 +70,14 @@ HEIF is a new image file format employing HEVC (h.265) image coding for the best
 
   # libaom decoder/encoder
   s.subspec 'libaom' do |ss|
-    ss.dependency 'libaom'
+    ss.dependency 'libaom', '>= 1.0.1'
     ss.dependency 'libheif/libheif'
     ss.source_files = 'libheif/heif_decoder_aom.{h,c,cc}', 'libheif/heif_encoder_aom.{h,c,cc}'
     ss.private_header_files = 'libheif/heif_decoder_aom.h', 'libheif/heif_encoder_aom.h'
     ss.preserve_path = 'libheif'
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) HAVE_AOM=1',
-      'HEADER_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/libheif/ ${PODS_TARGET_SRCROOT}/ ${PODS_ROOT}/libaom/include' # Fix #include <aom/aom_decoder.h>
+      'HEADER_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/libheif/ ${PODS_TARGET_SRCROOT}/ ${PODS_ROOT}/libaom/aom' # Fix #include <aom/aom_decoder.h>
     }
   end
 
